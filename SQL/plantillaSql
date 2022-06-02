@@ -1,0 +1,82 @@
+CREATE TABLE Nominas.empresas (
+	IdEmpresa INT(10) auto_increment NOT NULL,
+	Nombre varchar(100) NOT NULL,
+	CIF varchar(10) NOT NULL,
+	DFF VARCHAR(100) NULL,
+	CONSTRAINT empresas_PK PRIMARY KEY (IdEmpresa)
+)
+ENGINE=InnoDB
+DEFAULT CHARSET=utf8mb4
+COLLATE=utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE Nominas.categorias (
+	IdCategoria INT(10) auto_increment NOT NULL,
+	NombreCategoria varchar(75) NOT NULL,
+	SalarioBaseCategoria DOUBLE NOT NULL,
+	ComplementoCategoria DOUBLE NOT NULL,
+	CONSTRAINT categorias_PK PRIMARY KEY (IdCategoria)
+)
+ENGINE=InnoDB
+DEFAULT CHARSET=utf8mb4
+COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE Nominas.trabajadorbbdd (
+	IdTrabajador INT(10) auto_increment NOT NULL,
+	IdEmpresa INT(10) NOT NULL,
+	IdCategoria INT(10) NOT NULL,
+	Nombre varchar(50) NOT NULL,
+	Apellido1 varchar(75) NOT NULL,
+	Apellido2 varchar(75) NULL,
+	email varchar(75) NULL,
+	FechaAlta DATE NULL,
+	CodigoCuenta varchar(20) NULL,
+	IBAN varchar(24) NULL,
+	NIFNIE varchar(10) NOT NULL,
+	CONSTRAINT trabajadorbbdd_PK PRIMARY KEY (IdTrabajador),
+	CONSTRAINT trabajadorbbdd_FK_1 FOREIGN KEY (IdCategoria) REFERENCES Nominas.categorias(IdCategoria) ON DELETE CASCADE ON UPDATE CASCADE
+)
+ENGINE=InnoDB
+DEFAULT CHARSET=utf8mb4
+COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE Nominas.nomina (
+	IdNomina INT(10) auto_increment NOT NULL,
+	IdTrabajador INT(10) NOT NULL,
+	Mes INT(10) NOT NULL,
+	Anio INT(10) NOT NULL,
+	NumeroTrienios INT(10) NOT NULL,
+	ImporteTrienios DOUBLE NULL,
+	importeSalarioMes DOUBLE NULL,
+	importeComplementoMes DOUBLE NULL,
+	ValorProrrateo DOUBLE NULL,
+	brutoAnual DOUBLE NULL,
+	IRPF DOUBLE NULL,
+	ImporteIRPF DOUBLE NULL,
+	BaseEmpresario DOUBLE NULL,
+	SeguridadSocialEmpresario DOUBLE NULL,
+	ImporteSeguridadSocialEmpresario DOUBLE NULL,
+	DesempleoEmpresario DOUBLE NULL,
+	ImporteDesempleoEmpresario DOUBLE NULL,
+	FormacionEmpresario DOUBLE NULL,
+	ImporteFormacionEmpresario DOUBLE NULL,
+	AccidentesTrabajoEmpresario DOUBLE NULL,
+	ImporteAccidentesTrabajoEmpresario DOUBLE NULL,
+	FOGASAEmpresario DOUBLE NULL,
+	ImporteFOGASAEMpresario DOUBLE NULL,
+	SeguridadSocialTrabajador DOUBLE NULL,
+	ImporteSeguridadSocialTrabajador DOUBLE NULL,
+	DesempleoTrabajador DOUBLE NULL,
+	ImporteDesempleoTrabajador DOUBLE NULL,
+	FormacionTrabajador DOUBLE NULL,
+	ImporteFormacionTrabajador DOUBLE NULL,
+	BrutoNomina DOUBLE NULL,
+	LiquidoNomina DOUBLE NULL,
+	CosteTotalEmpresario DOUBLE NULL,
+	CONSTRAINT nomina_PK PRIMARY KEY (IdNomina),
+	CONSTRAINT nomina_FK FOREIGN KEY (IdTrabajador) REFERENCES Nominas.trabajadorbbdd(IdTrabajador) ON DELETE CASCADE ON UPDATE CASCADE
+)
+ENGINE=InnoDB
+DEFAULT CHARSET=utf8mb4
+COLLATE=utf8mb4_0900_ai_ci;
+
